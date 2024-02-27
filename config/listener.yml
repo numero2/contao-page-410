@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autoconfigure: true
+
+
+    numero2\Page410Bundle\EventListener\DataContainer\PageListener:
+        arguments:
+            - '@database_connection'

@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<xliff version="1.1">
+<file>
+<body>
+    <trans-unit id="PTY.error_410.0">
+        <target>410 Gone</target>
+    </trans-unit>
+    <trans-unit id="PTY.error_410.1">
+        <source>If a visitor requests a page that is no longer available and that this condition is likely to be permanent, a 410 error page will be loaded instead.</source>
+    </trans-unit>
+</body>
+</file>
+</xliff>

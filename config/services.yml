@@ -1,0 +1,10 @@
+services:
+
+    numero2_page410.route_410_provider:
+        decorates: contao.routing.route_404_provider
+        class: numero2\Page410Bundle\Routing\Route410Provider
+        arguments:
+            - '@numero2_page410.route_410_provider.inner'
+            - '@contao.framework'
+            - '@contao.routing.locale_candidates'
+            - '@Contao\CoreBundle\Routing\Page\PageRegistry'
