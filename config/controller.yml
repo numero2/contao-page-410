@@ -1,0 +1,13 @@
+services:
+    _defaults:
+        autoconfigure: true
+
+    _instanceof:
+        Contao\CoreBundle\Controller\AbstractController:
+            tags:
+                - { name: container.service_subscriber, id: contao.csrf.token_manager }
+
+
+    numero2\Page410Bundle\Controller\Page\GonePageController:
+        arguments:
+            - '@contao.framework'
