@@ -192,14 +192,14 @@ trait Route410ProviderBase {
         $routes = [];
 
         foreach( $pages as $page ) {
-            $this->addNotFoundRoutesForPage($page, $routes);
+            $this->addGoneRoutesForPage($page, $routes);
         }
 
         return $routes;
     }
 
 
-    private function addNotFoundRoutesForPage( PageModel $page, array &$routes ): void {
+    private function addGoneRoutesForPage( PageModel $page, array &$routes ): void {
 
         if( $page->type !== 'error_410' ) {
             return;
@@ -307,7 +307,7 @@ trait Route410ProviderBase {
     /**
      * Sorts routes so that the FinalMatcher will correctly resolve them.
      *
-     * 1. Sort locale-aware routes first, so e.g. /de/not-found.html renders the german error page
+     * 1. Sort locale-aware routes first, so e.g. /de/gone.html renders the german error page
      * 2. Then sort by hostname, so the ones with empty host are only taken if no hostname matches
      * 3. Lastly pages must be sorted by accept language and fallback, so the best language matches first
      */
@@ -316,10 +316,14 @@ trait Route410ProviderBase {
         uasort(
             $routes,
             function( Route $a, Route $b ) use ( $languages, $routes ) {
-                $errorA = strpos('.error_410', array_search($a, $routes, true)) !== false;
-                $errorB = strpos('.error_410', array_search($a, $routes, true), -7) !== false;
-                $localeA = substr(array_search($a, $routes, true), -7) === '.locale';
-                $localeB = substr(array_search($b, $routes, true), -7) === '.locale';
+
+                $nameA = array_search($a, $routes, true);
+                $nameB = array_search($b, $routes, true);
+
+                $errorA = strpos('.error_410', $nameA, -7) !== false;
+                $errorB = strpos('.error_410', $nameB, -7) !== false;
+                $localeA = substr($nameA, -7) === '.locale';
+                $localeB = substr($nameB, -7) === '.locale';
 
                 if( $errorA && !$errorB ) {
                     return 1;
