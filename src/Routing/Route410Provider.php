@@ -38,7 +38,7 @@ if( version_compare(ContaoCoreBundle::getVersion(), '5.0', '>=') ) {
 
         public function getRoutesByNames( ?array $names=null ): array {
 
-            $this->getRoutesByNamesForContao5($names);
+            return $this->getRoutesByNamesForContao5($names);
         }
     }
 
@@ -55,7 +55,7 @@ if( version_compare(ContaoCoreBundle::getVersion(), '5.0', '>=') ) {
                 return [];
             }
 
-            $this->getRoutesByNamesForContao5($names);
+            return $this->getRoutesByNamesForContao5($names);
         }
     }
 }
@@ -126,7 +126,7 @@ trait Route410ProviderBase {
 
         $routes = [];
 
-        $this->addNotFoundRoutesForPage($page, $routes);
+        $this->addGoneRoutesForPage($page, $routes);
         $this->addLocaleRedirectRoute($this->pageRegistry->getRoute($page), null, $routes);
 
         if( !array_key_exists($name, $routes) ) {
@@ -163,7 +163,7 @@ trait Route410ProviderBase {
         $routes = [];
 
         foreach ($pages as $page) {
-            $this->addNotFoundRoutesForPage($page, $routes);
+            $this->addGoneRoutesForPage($page, $routes);
             $this->addLocaleRedirectRoute($this->pageRegistry->getRoute($page), null, $routes);
         }
 

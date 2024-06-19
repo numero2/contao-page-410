@@ -36,7 +36,7 @@ class GonePageController extends AbstractController implements ContentCompositio
     }
 
 
-    public function __invoke( PageModel $pageModel): Response {
+    public function __invoke( PageModel $pageModel ): Response {
 
         $this->framework->initialize();
 
