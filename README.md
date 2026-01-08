@@ -12,7 +12,7 @@ This extension adds a new page type for "410 Gone".
 System requirements
 --
 
-* [Contao 4.13](https://github.com/contao/contao) or [Contao 5.3](https://github.com/contao/contao) (or newer)
+* [Contao 5.3](https://github.com/contao/contao) (or newer)
 
 
 Installation

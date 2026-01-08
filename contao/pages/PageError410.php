@@ -6,7 +6,7 @@
  * @author    Benny Born <benny.born@numero2.de>
  * @author    Michael Bösherz <michael.boesherz@numero2.de>
  * @license   Commercial
- * @copyright Copyright (c) 2024, numero2 - Agentur für digitales Marketing GbR
+ * @copyright Copyright (c) 2026, numero2 - Agentur für digitales Marketing GbR
  */
 
 
@@ -84,28 +84,6 @@ class PageError410 extends Frontend {
 
         // Find the matching root page
         $objRootPage = $this->getRootPageFromUrl();
-
-        // Forward if the language should be but is not set (see #4028)
-        if( $objRootPage->urlPrefix && System::getContainer()->getParameter('contao.legacy_routing') ) {
-            // Get the request string without the script name
-            $strRequest = Environment::get('relativeRequest');
-
-            // Only redirect if there is no language fragment (see #4669)
-            if( $strRequest && !preg_match('@^[a-z]{2}(-[A-Z]{2})?/@', $strRequest) ) {
-                // Handle language fragments without trailing slash (see #7666)
-                if( preg_match('@^[a-z]{2}(-[A-Z]{2})?$@', $strRequest) ) {
-                    $this->redirect(Environment::get('request') . '/', 301);
-                } else {
-                    if( $strRequest == Environment::get('request') ) {
-                        $strRequest = $objRootPage->language . '/' . $strRequest;
-                    } else {
-                        $strRequest = Environment::get('script') . '/' . $objRootPage->language . '/' . $strRequest;
-                    }
-
-                    $this->redirect($strRequest);
-                }
-            }
-        }
 
         // Look for a 410 page
         $obj410 = PageModel::find410ByPid($objRootPage->id);
