@@ -5,28 +5,29 @@
  *
  * @author    Benny Born <benny.born@numero2.de>
  * @author    Michael Bösherz <michael.boesherz@numero2.de>
- * @license   Commercial
- * @copyright Copyright (c) 2024, numero2 - Agentur für digitales Marketing GbR
+ * @license   LGPL-3.0-or-later
+ * @copyright Copyright (c) 2026, numero2 - Agentur für digitales Marketing GbR
  */
 
 
 namespace numero2\Page410Bundle\Controller\Page;
 
 use Contao\CoreBundle\Controller\AbstractController;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsPage;
 use Contao\CoreBundle\Framework\ContaoFramework;
 use Contao\CoreBundle\Routing\Page\ContentCompositionInterface;
-use Contao\CoreBundle\ServiceAnnotation\Page;
 use Contao\FrontendIndex;
 use Contao\PageModel;
 use Symfony\Component\HttpFoundation\Response;
 
 
-/**
- * @Page("error_410", path=false)
- */
+#[AsPage('error_410', path: false)]
 class GonePageController extends AbstractController implements ContentCompositionInterface {
 
 
+    /**
+     * @var Contao\CoreBundle\Framework\ContaoFramework
+     */
     private ContaoFramework $framework;
 
 
@@ -45,6 +46,7 @@ class GonePageController extends AbstractController implements ContentCompositio
             ->renderPage($pageModel)
         ;
     }
+
 
     public function supportsContentComposition( PageModel $pageModel ): bool {
 

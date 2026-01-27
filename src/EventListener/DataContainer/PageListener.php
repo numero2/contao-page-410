@@ -5,16 +5,16 @@
  *
  * @author    Benny Born <benny.born@numero2.de>
  * @author    Michael Bösherz <michael.boesherz@numero2.de>
- * @license   Commercial
- * @copyright Copyright (c) 2024, numero2 - Agentur für digitales Marketing GbR
+ * @license   LGPL-3.0-or-later
+ * @copyright Copyright (c) 2026, numero2 - Agentur für digitales Marketing GbR
  */
 
 
 namespace numero2\Page410Bundle\EventListener\DataContainer;
 
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Contao\CoreBundle\Event\FilterPageTypeEvent;
-use Contao\CoreBundle\ServiceAnnotation\Callback;
-use Contao\CoreBundle\ServiceAnnotation\Hook;
 use Contao\DataContainer;
 use Contao\PageModel;
 use Doctrine\DBAL\Connection;
@@ -25,6 +25,9 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 class PageListener {
 
 
+    /**
+     * @var Doctrine\DBAL\Connection
+     */
     private Connection $connection;
 
 
@@ -39,9 +42,8 @@ class PageListener {
      * Make sure error 410 type is always hidden from navigation, sitemap, etc.
      *
      * @param Contao\DataContainer $dc
-     *
-     * @Callback(table="tl_page", target="config.onload")
      */
+    #[AsCallback('tl_page', target: 'config.onload')]
     public function hide410FromNavigation( DataContainer $dc ) {
 
         if( $dc && $dc->id ) {
@@ -66,13 +68,12 @@ class PageListener {
     /**
      * Return the status icon for error page 410
      *
-	 * @param Contao\PageModel|Contao\Result|stdClass $page
+     * @param Contao\PageModel|Contao\Result|stdClass $page
      * @param string $image
      *
      * @return string
-     *
-     * @Hook("getPageStatusIcon")
      */
+    #[AsHook('getPageStatusIcon')]
     public function getPageStatusIcon( $page, string $image ): string {
 
         if( $page->type !== 'error_410' ) {
@@ -104,7 +105,7 @@ class PageListener {
     /**
      * Error 410 page type can only be inside root page and max one per root page
      *
-     * @param \Contao\CoreBundle\Event\FilterPageTypeEvent $event
+     * @param Contao\CoreBundle\Event\FilterPageTypeEvent $event
      */
     public function limitPageTypes( FilterPageTypeEvent $event ): void {
 

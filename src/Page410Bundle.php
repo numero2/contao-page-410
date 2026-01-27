@@ -5,8 +5,8 @@
  *
  * @author    Benny Born <benny.born@numero2.de>
  * @author    Michael Bösherz <michael.boesherz@numero2.de>
- * @license   Commercial
- * @copyright Copyright (c) 2024, numero2 - Agentur für digitales Marketing GbR
+ * @license   LGPL-3.0-or-later
+ * @copyright Copyright (c) 2026, numero2 - Agentur für digitales Marketing GbR
  */
 
 
@@ -18,6 +18,9 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 class Page410Bundle extends Bundle {
 
 
+    /**
+     * {@inheritdoc}
+     */
     public function getPath(): string {
 
         return \dirname(__DIR__);

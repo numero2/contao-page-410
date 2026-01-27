@@ -5,7 +5,7 @@
  *
  * @author    Benny Born <benny.born@numero2.de>
  * @author    Michael Bösherz <michael.boesherz@numero2.de>
- * @license   Commercial
+ * @license   LGPL-3.0-or-later
  * @copyright Copyright (c) 2026, numero2 - Agentur für digitales Marketing GbR
  */
 
@@ -42,19 +42,19 @@ class PageError410 extends Frontend {
         /** @var PageRegular $objHandler */
         $objHandler = new $GLOBALS['TL_PTY']['regular']();
 
-		header('HTTP/1.1 410 Gone');
-		$objHandler->generate($objPage);
+        header('HTTP/1.1 410 Gone');
+        $objHandler->generate($objPage);
     }
 
 
     /**
      * Return a response object
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function getResponse() {
 
-        /** @var PageModel $objPage */
+        /** @var Contao\PageModel $objPage */
         global $objPage;
 
         $obj410 = $this->prepare();
@@ -66,7 +66,7 @@ class PageError410 extends Frontend {
             $objPage->clientCache = 0;
         }
 
-        /** @var PageRegular $objHandler */
+        /** @var Contao\PageRegular $objHandler */
         $objHandler = new $GLOBALS['TL_PTY']['regular']();
 
         return $objHandler->getResponse($objPage)->setStatusCode(410);
@@ -76,9 +76,10 @@ class PageError410 extends Frontend {
     /**
      * Prepare the output
      *
-     * @return PageModel
+     * @return Contao\PageModel
      *
-     * @internal Do not call this method in your code. It will be made private in Contao 5.0.
+     * @throws Contao\CoreBundle\Exception\ForwardPageNotFoundException
+     * @throws Contao\CoreBundle\Exception\PageNotFoundException
      */
     protected function prepare() {
 
